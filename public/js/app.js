@@ -130,6 +130,7 @@ jQuery(function ($) {
       this.render();
     },
 
+    // jQuery
     indexFromEl: function (el) {
       var id = $(el).closest('li').data('id');
       var todos = this.todos;
@@ -141,37 +142,22 @@ jQuery(function ($) {
       }
     },
 
-    // jQuery removed
-    // indexFromEl: function (el) {
-    //   var id = el.parentNode.parentNode.dataset.id;
-    //   var todos = this.todos;
-    //   var i = todos.length;
-    //   while (i--) {
-    //     if (todos[i].id === id) {
-    //       return i;
-    //     }
-    //   }
-    // },
+//     // no jQuery - not working yet, breaks 'update' function
+//     indexFromEl: function (el) {
+//       var id = el.parentNode.parentNode.dataset.id;
+//       var todos = this.todos;
+//       var i = todos.length;
+//       while (i--) {
+//         if (todos[i].id === id) {
+//           return i;
+//         }
+//       }
+//     },
 
-    create: function (e) {
-      var $input = $(e.target);
-      var val = $input.val().trim();
-      if (e.which !== ENTER_KEY || !val) {
-        return;
-      }
-      this.todos.push({
-        id: util.uuid(),
-        title: val,
-        completed: false,
-      });
-      $input.val('');
-      this.render();
-    },
-
-//     // jQuery removed
+//     // jQuery
 //     create: function (e) {
-//       var input = e.target;
-//       var val = input.value.trim();
+//       var $input = $(e.target);
+//       var val = $input.val().trim();
 //       if (e.which !== ENTER_KEY || !val) {
 //         return;
 //       }
@@ -180,9 +166,25 @@ jQuery(function ($) {
 //         title: val,
 //         completed: false,
 //       });
-//       input.value = '';
+//       $input.val('');
 //       this.render();
 //     },
+
+    // no jQuery
+    create: function (e) {
+      var input = e.target;
+      var val = input.value.trim();
+      if (e.which !== ENTER_KEY || !val) {
+        return;
+      }
+      this.todos.push({
+        id: util.uuid(),
+        title: val,
+        completed: false,
+      });
+      input.value = '';
+      this.render();
+    },
 
     toggle: function (e) {
       var i = this.indexFromEl(e.target);
