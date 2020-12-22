@@ -130,11 +130,8 @@ jQuery(function ($) {
       this.render();
     },
 
-    // accepts an element from inside the `.item` div and
-    // returns the corresponding index in the `todos` array
-    // jQuery removed
     indexFromEl: function (el) {
-      var id = el.parentNode.parentNode.dataset.id;
+      var id = $(el).closest('li').data('id');
       var todos = this.todos;
       var i = todos.length;
       while (i--) {
@@ -145,9 +142,20 @@ jQuery(function ($) {
     },
 
     // jQuery removed
+    // indexFromEl: function (el) {
+    //   var id = el.parentNode.parentNode.dataset.id;
+    //   var todos = this.todos;
+    //   var i = todos.length;
+    //   while (i--) {
+    //     if (todos[i].id === id) {
+    //       return i;
+    //     }
+    //   }
+    // },
+
     create: function (e) {
-      var input = e.target;
-      var val = input.value.trim();
+      var $input = $(e.target);
+      var val = $input.val().trim();
       if (e.which !== ENTER_KEY || !val) {
         return;
       }
@@ -156,9 +164,25 @@ jQuery(function ($) {
         title: val,
         completed: false,
       });
-      input.value = '';
+      $input.val('');
       this.render();
     },
+
+//     // jQuery removed
+//     create: function (e) {
+//       var input = e.target;
+//       var val = input.value.trim();
+//       if (e.which !== ENTER_KEY || !val) {
+//         return;
+//       }
+//       this.todos.push({
+//         id: util.uuid(),
+//         title: val,
+//         completed: false,
+//       });
+//       input.value = '';
+//       this.render();
+//     },
 
     toggle: function (e) {
       var i = this.indexFromEl(e.target);
